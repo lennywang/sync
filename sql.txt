@@ -1,0 +1,23 @@
+--xdclass
+CREATE TABLE `studentinfo` (
+  `id` int(10) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `sex` varchar(4) DEFAULT NULL,
+  `birth` year(4) DEFAULT NULL,
+  `department` varchar(20) DEFAULT NULL,
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据进入中间表的时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+--middle
+studentinfo	CREATE TABLE `studentinfo` (
+  `id` int(10) NOT NULL COMMENT '自增ID',
+  `name` varchar(20) NOT NULL,
+  `sex` varchar(4) DEFAULT NULL,
+  `birth` datetime DEFAULT NULL,
+  `department` varchar(20) DEFAULT NULL,
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据进入中间表的时间',
+  `data_status` varchar(10) NOT NULL DEFAULT '10I' COMMENT '10I 第三方系统入库 10D 处理中 10F 处理完成 10E 发生错误或异常',
+  `deal_time` datetime DEFAULT NULL COMMENT '处理时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

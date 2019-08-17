@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdclass.middle.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.xdclass.middle.model.Student">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="birth" jdbcType="TIMESTAMP" property="birth"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="data_status" jdbcType="VARCHAR" property="dataStatus"/>
+        <result column="deal_time" jdbcType="TIMESTAMP" property="dealTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, sex, birth, department, add_time, data_status, deal_time
+    </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        LIMIT #{count}
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM student
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.xdclass.middle.model.Student">
+        INSERT INTO student (id, name, sex,
+                             birth, department, add_time,
+                             data_status, deal_time)
+        VALUES (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+                #{birth,jdbcType=TIMESTAMP}, #{department,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
+                #{dataStatus,jdbcType=VARCHAR}, #{dealTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xdclass.middle.model.Student">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="department != null">
+                department,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="dataStatus != null">
+                data_status,
+            </if>
+            <if test="dealTime != null">
+                deal_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birth != null">
+                #{birth,jdbcType=TIMESTAMP},
+            </if>
+            <if test="department != null">
+                #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dataStatus != null">
+                #{dataStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="dealTime != null">
+                #{dealTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xdclass.middle.model.Student">
+        update student
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birth != null">
+                birth = #{birth,jdbcType=TIMESTAMP},
+            </if>
+            <if test="department != null">
+                department = #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dataStatus != null">
+                data_status = #{dataStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="dealTime != null">
+                deal_time = #{dealTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xdclass.middle.model.Student">
+        UPDATE student
+        SET name        = #{name,jdbcType=VARCHAR},
+            sex         = #{sex,jdbcType=VARCHAR},
+            birth       = #{birth,jdbcType=TIMESTAMP},
+            department  = #{department,jdbcType=VARCHAR},
+            add_time    = #{addTime,jdbcType=TIMESTAMP},
+            data_status = #{dataStatus,jdbcType=VARCHAR},
+            deal_time   = #{dealTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStatusById"  parameterType="com.xdclass.middle.model.Student">
+        UPDATE student
+        SET data_status = #{dataStatus},
+            deal_time   = #{dealTime,jdbcType=TIMESTAMP}
+        WHERE id = #{id}
+    </update>
+</mapper>
