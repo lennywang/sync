@@ -29,7 +29,7 @@ public class DealBusinessImpl implements DealBusiness {
                 ourSqlSession.commit();
                 modifyMiddle(student.getId(), DataStatusConstant.FINISH);
             } catch (Exception e) {
-                LOGGER.error("数据处理发生异常===》", e);
+                LOGGER.error("数据处理发生异常====》", e);
                 modifyMiddle(student.getId(), DataStatusConstant.ERROR);
             } finally {
                 ourSqlSession.close();
